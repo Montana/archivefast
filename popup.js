@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Format the URL properly (add https:// if needed)
   function formatUrl(url) {
     url = url.trim();
     if (url && !url.match(/^https?:\/\//i)) {
@@ -18,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputUrl = formatUrl(document.getElementById('urlInput').value);
     if (!inputUrl) return;
 
-    // Use the form submission method that was working before
     const htmlContent = `
       <html>
         <body onload="document.forms[0].submit()">
