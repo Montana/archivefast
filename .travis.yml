@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - "18"
+
+install:
+  - npm install -g web-ext
+
+script:
+  - web-ext lint --source-dir=.
