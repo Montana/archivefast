@@ -1,34 +1,205 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>ArchiveFast</title>
-    <style>
-      body {
-        font-family: sans-serif;
-        padding: 10px;
-        width: 300px;
-      }
-      input[type="text"] {
-        width: 100%;
-        padding: 5px;
-        margin-bottom: 10px;
-      }
-      button {
-        width: 100%;
-        padding: 6px;
-        background-color: #444;
-        color: white;
-        border: none;
-        cursor: pointer;
-      }
-      button:hover {
-        background-color: #222;
-      }
-    </style>
-  </head>
-  <body>
-    <input type="text" id="urlInput" placeholder="Paste link here..." />
-    <button id="archiveBtn">Go to your link!</button>
-    <script src="popup.js"></script>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArchiveFast</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      width: 350px;
+      margin: 0;
+      padding: 12px;
+      color: #333;
+    }
+    
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .logo {
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+    }
+    
+    h1 {
+      font-size: 16px;
+      margin: 0;
+    }
+    
+    .input-wrapper {
+      position: relative;
+      margin-bottom: 12px;
+    }
+    
+    #urlInput {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    
+    #urlInput:focus {
+      outline: none;
+      border-color: #4285f4;
+      box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+    }
+    
+    .button-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    
+    button {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    #archiveBtn {
+      background-color: #4285f4;
+      color: white;
+      flex-grow: 1;
+    }
+    
+    #archiveBtn:hover {
+      background-color: #3367d6;
+    }
+    
+    #clearBtn {
+      background-color: #f1f3f4;
+      color: #5f6368;
+    }
+    
+    #clearBtn:hover {
+      background-color: #e8eaed;
+    }
+    
+    .status {
+      font-size: 13px;
+      height: 18px;
+      margin: 4px 0 8px;
+    }
+    
+    .status.info {
+      color: #4285f4;
+    }
+    
+    .status.success {
+      color: #0f9d58;
+    }
+    
+    .status.error {
+      color: #ea4335;
+    }
+    
+    .history-section {
+      border-top: 1px solid #e8eaed;
+      padding-top: 12px;
+    }
+    
+    .history-header {
+      font-size: 14px;
+      font-weight: 500;
+      margin: 0 0 8px;
+    }
+    
+    .history-list {
+      max-height: 200px;
+      overflow-y: auto;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    
+    .history-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid #f1f3f4;
+    }
+    
+    .history-list li:last-child {
+      border-bottom: none;
+    }
+    
+    .url-text {
+      flex-grow: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 13px;
+      color: #5f6368;
+      cursor: default;
+    }
+    
+    .use-btn {
+      padding: 4px 8px;
+      font-size: 12px;
+      background-color: #f1f3f4;
+      color: #5f6368;
+      margin-left: 8px;
+    }
+    
+    .use-btn:hover {
+      background-color: #e8eaed;
+    }
+    
+    .empty-history {
+      font-style: italic;
+      color: #80868b;
+      font-size: 13px;
+    }
+    
+    .footer {
+      font-size: 11px;
+      color: #80868b;
+      text-align: center;
+      margin-top: 12px;
+    }
+    
+    .footer a {
+      color: #4285f4;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="icon.png" alt="Archive Today logo" class="logo">
+    <h1>ArchiveFast</h1>
+  </div>
+  
+  <div class="input-wrapper">
+    <input type="text" id="urlInput" placeholder="Enter URL to archive" autofocus>
+  </div>
+  
+  <div class="button-row">
+    <button id="archiveBtn">Archive This Page</button>
+    <button id="clearBtn">Clear History</button>
+  </div>
+  
+  <div id="statusMsg" class="status"></div>
+  
+  <div class="history-section">
+    <h2 class="history-header">Recent Archives</h2>
+    <ul id="historyList" class="history-list"></ul>
+  </div>
+  
+  <div class="footer">
+    Powered by <a href="https://www.michaelamendy.com target="_blank" rel="noopener noreferrer">ArchiveFast</a>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
 </html>
